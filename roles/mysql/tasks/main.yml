@@ -20,4 +20,4 @@
    lock_timeout: 200
    
 - name: start mysql
-  action: service name=mysqld state=started
+  action: service name=mysqld state=started enabled=yes
