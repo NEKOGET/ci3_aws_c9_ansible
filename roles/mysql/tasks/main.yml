@@ -1,0 +1,22 @@
+---
+
+- name: download epel-release
+  yum:
+   name: https://dev.mysql.com/get/mysql80-community-release-el7-1.noarch.rpm
+   state: present
+   lock_timeout: 200
+
+- name: install mysql
+  yum:
+   name: mysql-community*
+   state: present
+   lock_timeout: 200
+   
+- name: MySQL-python #ansibleのために必要
+  yum:
+   name: MySQL-python27
+   state: latest
+   lock_timeout: 200
+   
+- name: start mysql
+  action: service name=mysqld state=started

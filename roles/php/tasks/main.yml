@@ -1,34 +1,143 @@
 ---
-- name: uninstall php56
-  yum: name=php56 state=removed
-- name: install php71  php71 php71-cli php71-common php71-devel php71-gd php71-json php71-mbstring php71-mcrypt php71-mysqlnd php71-pdo php71-xml
-  yum: name="{{item}}" state=latest
-  with_items:
-  - php71
-  - php71
-  - php71-cli
-  - php71-common 
-  - php71-devel
-  - php71-gd
-  - php71-json
-  - php71-mbstring
-  - php71-mcrypt
-  - php71-mysqlnd
-  - php71-pdo
-  - php71-xml
+- name: install php73
+  yum:
+   name: php73
+   state: latest
+   lock_timeout: 200
 
-- name: remi add sudo rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-  yum: name=http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+- name: php73-bcmath
+  yum: 
+   name: php73-bcmath
+   state: latest
+   lock_timeout: 200
 
-- name: php71-php-pecl-zip php71-php-pecl-uuid php71-php-pecl-yaml php71-php-pecl-ssh2 --enablerepo=remi-php71,remi,epel
-  yum: name="{{item}}" state=latest
-  enablerepo: remi-php71,remi,epel
-  with_items:
-   - php71-php-pecl-zip
-   - php71-php-pecl-uuid
-   - php71-php-pecl-yaml
-   - php71-php-pecl-ssh2
-   - php71-redis
+- name: php73-devel 
+  yum: 
+   name: php73-devel 
+   state: latest
+   lock_timeout: 200
 
-- name: correct java version selected
-  alternatives: name=php path=/usr/bin/php-7.1
+- name: php73-embedded
+  yum: 
+   name: php73-embedded
+   state: latest
+   lock_timeout: 200
+
+- name: php73-enchant
+  yum: 
+   name: php73-enchant
+   state: latest
+   lock_timeout: 200
+   
+- name: php73-gmp 
+  yum: 
+   name: php73-gmp 
+   state: latest
+   lock_timeout: 200
+  
+- name: php73-imap
+  yum: 
+   name: php73-imap 
+   state: latest 
+   lock_timeout: 200
+
+- name: php73-intl  
+  yum: 
+   name: php73-intl 
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-mbstring 
+  yum: 
+   name: php73-mbstring
+   state: latest  
+   lock_timeout: 200
+  
+- name: php73-opcache 
+  yum: 
+   name: php73-opcache
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-pdo 
+  yum: 
+   name: php73-pdo 
+   state: latest  
+   lock_timeout: 200
+  
+- name: php73-mysqlnd  
+  yum: 
+   name: php73-mysqlnd 
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-pdo-dblib 
+  yum: 
+   name: php73-pdo-dblib
+   state: latest  
+   lock_timeout: 200
+  
+- name: php73-odbc 
+  yum: 
+   name: php73-odbc
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-pgsql 
+  yum:
+   name: php73-pgsql
+   state: latest 
+   lock_timeout: 200
+  
+- name:  php73-pspell 
+  yum:  
+   name: php73-pspell
+   state: latest 
+   lock_timeout: 200
+
+- name:  php73-recode 
+  yum:
+   name: php73-recode
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-snmp  
+  yum: 
+   name: php73-snmp  
+   state: latest 
+   lock_timeout: 200
+  
+- name:  php73-soap
+  yum:  
+   name: php73-soap
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-tidy
+  yum: 
+   name: php73-tidy 
+   state: latest 
+   lock_timeout: 200
+  
+- name: php73-xmlrpc   
+  yum:
+   name: php73-xmlrpc 
+   state: latest 
+   lock_timeout: 200
+
+- name: composer settings
+  stat: path=/usr/local/bin/composer
+  register: composer_bin
+  tags: composer
+
+
+- name: download composer
+  get_url:
+   url: https://getcomposer.org/installer
+   dest: /tmp/installer
+
+- name: install composer
+  shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin
+
+- name: rename composer.phar to composer
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer

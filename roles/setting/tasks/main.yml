@@ -1,8 +1,10 @@
 ---
-
+- name: dir parmission
+  command: chmod 777 /var/www
+  become: yes
   
 - name: CodeIgniter create project
-  command: composer create-project kenjis/codeigniter-composer-installer CodeIgniter chdir=/var/www/ creates=/var/www/CodeIgniter
+  command: /usr/local/bin/composer create-project kenjis/codeigniter-composer-installer CodeIgniter chdir=/var/www/ creates=/var/www/CodeIgniter
 
 - name: Change owner ec2-user
   command: chown ec2-user -R /var/www/CodeIgniter
@@ -24,3 +26,12 @@
 
 - name: create symbolic link
   file: src=/var/www/CodeIgniter dest=/home/ec2-user/environment/CodeIgniter state=link
+  
+- name: mysql create database
+  mysql_db: db={{ database_name }} state=present encoding=utf8
+
+- name: mysql create database test db
+  mysql_db: db={{ database_name }}_test state=present encoding=utf8
+
+- name: create mysql user
+  mysql_user: name={{ mysql_user_name }} host=localhost password={{ mysql_user_passwd }} priv='*.*:ALL' state=present

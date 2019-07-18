@@ -1,0 +1,6 @@
+---
+- name: apache install
+  yum:
+   name: httpd
+   state: latest
+   lock_timeout: 200

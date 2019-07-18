@@ -5,9 +5,16 @@
     timezone: 'Asia/Tokyo'
     mysql_user_name: 'nekoget'
     mysql_user_passwd: 'codeigniter3_love'
+    postgres_user_name: "nekoget"
+    postgres_user_password: "codeigniter3_love"
+    database_name: "codeIgniter3Study"
+    database_type: "postgres"
     httpDocumentRoot: '/var/www/CodeIgniter/public/'
-    
+    lock_timeout_number: 200
+
   roles:
-  - redis
+  - mysql
+#  - postgres
+  - apache
   - php
   - setting
