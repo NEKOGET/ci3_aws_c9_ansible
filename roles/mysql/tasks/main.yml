@@ -8,10 +8,11 @@
 
 - name: install mysql
   yum:
-   name: mysql-community*
+   name: mysql80*
    state: present
    lock_timeout: 200
-   
+ 
+
 - name: MySQL-python #ansibleのために必要
   yum:
    name: MySQL-python27

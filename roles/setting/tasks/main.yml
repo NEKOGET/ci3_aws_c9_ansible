@@ -17,9 +17,6 @@
   
 - name: httd.conf
   template: src=httpd.conf dest=/etc/httpd/conf/httpd.conf
-  
-- name: redis server start
-  service: name=redis enabled=yes state=restarted
 
 - name: http server start
   service: name=httpd  enabled=yes state=restarted
